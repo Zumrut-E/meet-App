@@ -2,7 +2,7 @@ import { loadFeature, defineFeature } from 'jest-cucumber';
 import { render, fireEvent, screen } from '@testing-library/react';
 import EventList from '../components/EventList'; // Adjust the path based on your structure
 
-const feature = loadFeature('./features/showHideAnEventsDetails.feature');
+const feature = loadFeature('./src/features/showHideAnEventsDetails.feature');
 
 defineFeature(feature, test => {
   test('Show event details', ({ given, when, then }) => {

@@ -17,15 +17,15 @@ const App = () => {
     const allEvents = await getEvents();
     const filteredEvents = currentCity === "See all cities" ?
       allEvents :
-      allEvents.filter(event => event.location === currentCity)
-    setEvents(filteredEvents.slice(0, currentNOE));
+      allEvents.filter(event => event.location === currentCity);
+    setEvents(filteredEvents.slice(0, currentNOE));  // Make sure currentNOE is a number
     setAllLocations(extractLocations(allEvents));
   }
 
   // Fetch data when the component mounts
   useEffect(() => {
     fetchData();
-  }, [currentCity]); // Re-fetch data when cuNOEtNOE changes
+  }, [currentCity, currentNOE]); // Re-fetch data when cuNOEtNOE changes
 
   return (
     <div className="App">
@@ -38,3 +38,4 @@ const App = () => {
 };
 
 export default App;
+

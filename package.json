@@ -2,11 +2,13 @@
   "name": "meet",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Zumrut-E.github.io/meet",
+  "homepage": "https://Zumrut-E.github.io/meet-App",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.5.2",
+    "atatus-spa": "^4.6.4",
+    "nprogress": "^0.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "^5.0.1",
@@ -33,7 +35,6 @@
     "deploy": "gh-pages -d build",
     "dev": "react-scripts start"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -53,7 +54,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.1.1",
+    "gh-pages": "^6.3.0",
     "jest-cucumber": "^4.5.0",
     "puppeteer": "^24.2.1"
   }

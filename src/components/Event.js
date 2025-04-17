@@ -1,3 +1,4 @@
+// src/components/Event.js
 import React, { useState } from 'react';
 
 const Event = ({ event }) => {
@@ -14,7 +15,7 @@ const Event = ({ event }) => {
         {showDetails ? 'Hide Details' : 'Show Details'}
       </button>
       {showDetails && event.description && (
-        <div className="details">
+        <div className="details" data-testid="event-details">
           <p>{event.description}</p>
         </div>
       )}
@@ -23,4 +24,5 @@ const Event = ({ event }) => {
 };
 
 export default Event;
+
 

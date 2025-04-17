@@ -4,6 +4,8 @@ import NumberOfEvents from './components/NumberOfEvents';
 import { useEffect, useState } from 'react';
 import { extractLocations, getEvents } from './api';
 import './App.css';
+import * as atatus from 'atatus-spa';
+atatus.config('e5cee82248e04c28a8e7a55f5f026126').install();
 
 const App = () => {
   const [events, setEvents] = useState([]);

@@ -1,51 +1,57 @@
-import { useState } from "react";
-import PropTypes from 'prop-types';
+// NumberOfEvents.js
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import "./NumberOfEvents.css";
 
-const NumberOfEvents = ({ setCurrentNOE, setErrorAlert }) => {
-  const [number, setNumber] = useState(32);
+const MIN = 1, MAX = 32;
+
+const NumberOfEvents = ({ setCurrentNOE }) => {
+  const [number, setNumber]   = useState(32);
+  const [error, setError]     = useState("");
 
   const handleInputChanged = (e) => {
-    const value = e.target.value;
-    setNumber(value);  // Always update what the user is typing
-  
-    // Only validate and update the parent if the value is a non-empty valid number
-    if (value === '') {
-      setErrorAlert('Number of events is required');
+    const val = e.target.value;
+    setNumber(val);
+
+    // empty?
+    if (val === "") {
+      setError("Please enter a number between 1 and 32.");
+      setCurrentNOE(0);
       return;
     }
-  
-    const parsedValue = parseInt(value, 10);
-  
-    if (isNaN(parsedValue) || parsedValue < 0) {
-      setErrorAlert('Please enter a valid number');
+
+    const n = parseInt(val, 10);
+    if (isNaN(n) || n < MIN || n > MAX) {
+      setError(`Please enter a number between ${MIN} and ${MAX}.`);
+      setCurrentNOE(0);
     } else {
-      setErrorAlert('');
-      setCurrentNOE(parsedValue);
+      setError("");
+      setCurrentNOE(n);
     }
   };
-  
- 
+
   return (
     <div id="numberOfEvents">
-      <label htmlFor="number" id="number">
+      <label htmlFor="number">
         Number of Events:
-      <input
-        type="text"
-        className="number"
-        value={number}
-        onChange={handleInputChanged}
+        <input
+          type="number"
+          id="number"
+          className="number"
+          min={MIN}
+          max={MAX}
+          value={number}
+          onChange={handleInputChanged}
         />
-        </label>
-    </div> 
-  )
-
-}
-
-
+      </label>
+      {error && <div className="error">{error}</div>}
+    </div>
+  );
+};
 
 NumberOfEvents.propTypes = {
   setCurrentNOE: PropTypes.func.isRequired,
-  setErrorAlert: PropTypes.func.isRequired
-}
+};
 
 export default NumberOfEvents;
+

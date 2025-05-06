@@ -1,34 +1,52 @@
-import { useState, useEffect } from "react";
+// CitySearch.js
+import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import "./CitySearch.css";
 
-
-const CitySearch = ({ allLocations, setCurrentCity }) => {  // allLocations passed as a prop
+const CitySearch = ({ allLocations, setCurrentCity }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [query, setQuery] = useState("");
+  const [query, setQuery]           = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const containerRef = useRef(null);
 
-   const handleInputChanged = (event) => {
-    const value = event.target.value;
-    const filteredLocations = allLocations ? allLocations.filter((location) => {
-      return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
-    }) : [];
+  // handle clicks outside the search box
+  useEffect(() => {
+    const onClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
 
-    setQuery(value);
-    setSuggestions(filteredLocations);
+  const handleInputChanged = (evt) => {
+    const val = evt.target.value;
+    setQuery(val);
+    setShowSuggestions(true);
+    if (!val.trim()) {
+      setSuggestions([]);
+      return;
+    }
+    const filtered = allLocations.filter((loc) =>
+      loc.toLowerCase().includes(val.toLowerCase())
+    );
+    setSuggestions(filtered);
   };
 
-  const handleItemClicked = (event) => {
-    const value = event.target.textContent;
-    setQuery(value);
-    setShowSuggestions(false); // to hide the list
-    setCurrentCity(value);
+  const handleItemClicked = (evt) => {
+    const city = evt.target.textContent;
+    setQuery(city);
+    setShowSuggestions(false);
+    setCurrentCity(city);
   };
 
   useEffect(() => {
-    setSuggestions(allLocations);
+    setSuggestions(allLocations || []);
   }, [allLocations]);
 
   return (
-    <div id="city-search">
+    <div className="city-search-container" ref={containerRef}>
       <input
         type="text"
         className="city"
@@ -37,19 +55,26 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {  // allLocations pass
         onFocus={() => setShowSuggestions(true)}
         onChange={handleInputChanged}
       />
-      {showSuggestions ?
+      {showSuggestions && suggestions.length > 0 && (
         <ul className="suggestions">
-          {suggestions.map((suggestion) => {
-            return <li onClick={handleItemClicked} key={suggestion}>{suggestion}</li>
-          })}
-          <li key='See all cities' onClick={handleItemClicked}>
+          {suggestions.map((s) => (
+            <li key={s} onClick={handleItemClicked}>
+              {s}
+            </li>
+          ))}
+          <li key="See all cities" onClick={handleItemClicked}>
             <b>See all cities</b>
           </li>
         </ul>
-        :null
-      }
+      )}
     </div>
   );
 };
 
+CitySearch.propTypes = {
+  allLocations: PropTypes.array.isRequired,
+  setCurrentCity: PropTypes.func.isRequired,
+};
+
 export default CitySearch;
+

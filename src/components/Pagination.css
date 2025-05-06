@@ -1,0 +1,30 @@
+/* in App.css or Pagination.css */
+
+.pagination {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin: 1rem 0;
+    padding: 0;
+  }
+  .pagination li {
+    margin: 0 0.25rem;
+  }
+  .pagination button {
+    background: #282c34;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .pagination li.active button {
+    background: #007bff;
+  }
+  .pagination button:hover {
+    opacity: 0.9;
+  }
+  .pagination-nav {
+    margin-top: 1rem;
+  }
+  

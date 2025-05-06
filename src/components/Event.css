@@ -1,0 +1,58 @@
+/* Container for each event (li.event) */
+.event {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s ease;
+    font-family: inherit;
+  }
+  
+  /* Hover effect for event card */
+  .event:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+  }
+  
+  /* Event title */
+  .event h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    color: #282c34;
+  }
+  
+  /* Location text */
+  .event p {
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+    color: #555555;
+  }
+  
+  /* Details toggle button: match header color */
+  .details-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #282c34; /* same as .App-header */
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .details-btn:hover {
+    background-color: #282c34; /* keep consistent on hover */
+  }
+  
+  /* Details section */
+  .details {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e0e0e0;
+    color: #333333;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  

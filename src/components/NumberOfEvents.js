@@ -5,7 +5,7 @@ import "./NumberOfEvents.css";
 
 const MIN = 1, MAX = 32;
 
-const NumberOfEvents = ({ setCurrentNOE }) => {
+const NumberOfEvents = ({ setCurrentNOE, setErrorAlert }) => {
   const [number, setNumber]   = useState(32);
   const [error, setError]     = useState("");
 

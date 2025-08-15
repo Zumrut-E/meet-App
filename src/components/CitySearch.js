@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import "./CitySearch.css";
 
-const CitySearch = ({ allLocations, setCurrentCity }) => {
+const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery]           = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -20,25 +20,38 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
 
-  const handleInputChanged = (evt) => {
-    const val = evt.target.value;
-    setQuery(val);
-    setShowSuggestions(true);
-    if (!val.trim()) {
-      setSuggestions([]);
-      return;
-    }
-    const filtered = allLocations.filter((loc) =>
-      loc.toLowerCase().includes(val.toLowerCase())
-    );
-    setSuggestions(filtered);
-  };
+const handleInputChanged = (event) => {
+  const value = event.target.value;
+  const query = value.trim();
+
+  setQuery(value);
+  setShowSuggestions(true);
+
+  if (!query) {
+    setSuggestions([]);
+    setInfoAlert(""); 
+    return;
+  }
+
+  const source = Array.isArray(allLocations) ? allLocations : [];
+  const filtered = source.filter((loc) =>
+    loc.toLowerCase().includes(query.toLowerCase())
+  );
+
+  setSuggestions(filtered);
+  setInfoAlert(
+    filtered.length === 0
+      ? "We cannot find the city you are looking for. Please try another city."
+      : ""
+  );
+};
 
   const handleItemClicked = (evt) => {
     const city = evt.target.textContent;
     setQuery(city);
     setShowSuggestions(false);
     setCurrentCity(city);
+    setInfoAlert("");
   };
 
   useEffect(() => {
@@ -46,7 +59,7 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
   }, [allLocations]);
 
   return (
-    <div className="city-search-container" ref={containerRef}>
+    <div className="city-search-container" id="city-search" ref={containerRef}>
       <input
         type="text"
         className="city"

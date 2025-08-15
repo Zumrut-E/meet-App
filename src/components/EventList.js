@@ -4,7 +4,7 @@ import './Pagination.css'; // ensure your pagination styles are here
 
 const EventList = ({ events = [] }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const eventsPerPage = 4;
+  const eventsPerPage = 32;
   const totalPages = Math.ceil(events.length / eventsPerPage);
 
   const indexOfLast = currentPage * eventsPerPage;

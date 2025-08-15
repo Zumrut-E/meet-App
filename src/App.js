@@ -4,6 +4,7 @@ import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
 import { useEffect, useState } from 'react';
 import { extractLocations, getEvents } from './api';
+import { InfoAlert } from './components/Alert';
 import './App.css';
 import logo from './logo1.svg';
 import * as atatus from 'atatus-spa';
@@ -15,6 +16,7 @@ const App = () => {
   const [currentNOE, setCurrentNOE] = useState(32);
   const [allLocations, setAllLocations] = useState([]);
   const [currentCity, setCurrentCity] = useState("See all cities");
+  const [infoAlert, setInfoAlert] = useState("");
 
   // Function to fetch event data
   const fetchData = async () => {
@@ -33,6 +35,9 @@ const App = () => {
 
   return (
     <div className="App">
+      <div className="alerts-container">
+       {infoAlert.length ? <InfoAlert text={infoAlert}/> : null}
+     </div>
       {/* App header with logo */}
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -40,7 +45,7 @@ const App = () => {
       </header>
 
       {/* Main app components */}
-      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} setInfoAlert={setInfoAlert} />
       <NumberOfEvents setCurrentNOE={setCurrentNOE} setErrorAlert={() => {}} />
       <EventList events={events} />
     </div>

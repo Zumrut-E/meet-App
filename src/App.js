@@ -4,7 +4,7 @@ import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
 import { useEffect, useState } from 'react';
 import { extractLocations, getEvents } from './api';
-import { InfoAlert, ErrorAlert } from './components/Alert';
+import { InfoAlert, ErrorAlert, WarningAlert } from './components/Alert';
 import './App.css';
 import logo from './logo1.svg';
 import * as atatus from 'atatus-spa';
@@ -18,6 +18,7 @@ const App = () => {
   const [currentCity, setCurrentCity] = useState("See all cities");
   const [infoAlert, setInfoAlert] = useState("");
   const [errorAlert, setErrorAlert] = useState("");
+  const [warningAlert, setWarningAlert] = useState(""); 
 
   // Function to fetch event data
   const fetchData = async () => {
@@ -31,6 +32,13 @@ const App = () => {
 
   // Fetch data when the component mounts or dependencies change
   useEffect(() => {
+    if (navigator.onLine) {
+      // ✅ User is online
+      setWarningAlert('');
+    } else {
+      // ⚠️ User is offline
+      setWarningAlert('You are currently offline. Displayed data may not be up to date.');
+    }
     fetchData();
   }, [currentCity, currentNOE]); // Re-fetch data when currentCity or currentNOE changes
 
@@ -39,6 +47,7 @@ const App = () => {
       <div className="alerts-container">
        {infoAlert.length ? <InfoAlert text={infoAlert}/> : null}
        {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
+        {warningAlert.length ? <WarningAlert text={warningAlert} /> : null}
      </div>
       {/* App header with logo */}
       <header className="App-header">

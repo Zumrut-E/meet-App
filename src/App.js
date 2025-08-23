@@ -45,15 +45,15 @@ const App = () => {
   }, [currentCity, currentNOE]); // Re-fetch data when currentCity or currentNOE changes
 
   return (
-    <div className="App">
-      <div className="alerts-container">
+    <div class="App">
+      <div class="alerts-container">
        {infoAlert.length ? <InfoAlert text={infoAlert}/> : null}
        {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
         {warningAlert.length ? <WarningAlert text={warningAlert} /> : null}
      </div>
       {/* App header with logo */}
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <header class="App-header">
+        <img src={logo} class="App-logo" alt="logo" />
         <h1>My Event App</h1>
       </header>
 
